@@ -1,5 +1,7 @@
 {
     "rewrites": [
-      { "source": "/(.*)", "destination": "/" }
+      { "source": "/verify-email", "destination": "/" },
+      { "source": "/reset-password", "destination": "/" },
+      { "source": "/forgot-password", "destination": "/" }
     ]
   }
