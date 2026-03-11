@@ -51,7 +51,7 @@ export async function register(req, res) {
     });
 
     const verificationToken = createVerificationToken(user);
-    const verificationUrl = `${CLIENT_ORIGIN()}/api/auth/verify-email?token=${verificationToken}`;
+    const verificationUrl = `${CLIENT_ORIGIN()}/verify-email?token=${verificationToken}`;
 
     await sendEmail({
       to: user.email,
@@ -165,7 +165,7 @@ export async function forgotPassword(req, res) {
     }
 
     const resetToken = createPasswordResetToken(user);
-    const resetUrl = `${CLIENT_ORIGIN()}/api/auth/reset-password?token=${resetToken}`;
+    const resetUrl = `${CLIENT_ORIGIN()}/reset-password?token=${resetToken}`;
 
     await sendEmail({
       to: user.email,
