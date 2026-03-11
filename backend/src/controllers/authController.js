@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
-import { sendEmail, emailVerificationContent } from "../utils/email.js";
+import { sendEmail, emailVerificationContent , passwordResetContent} from "../utils/email.js";
 
 const JWT_SECRET = () => process.env.JWT_SECRET || "dev-secret";
 const CLIENT_ORIGIN = () =>
@@ -51,7 +51,7 @@ export async function register(req, res) {
     });
 
     const verificationToken = createVerificationToken(user);
-    const verificationUrl = `${CLIENT_ORIGIN()}/verify-email?token=${verificationToken}`;
+    const verificationUrl = `${CLIENT_ORIGIN()}/api/auth/verify-email?token=${verificationToken}`;
 
     await sendEmail({
       to: user.email,
@@ -165,13 +165,12 @@ export async function forgotPassword(req, res) {
     }
 
     const resetToken = createPasswordResetToken(user);
-    const resetUrl = `${CLIENT_ORIGIN()}/reset-password?token=${resetToken}`;
+    const resetUrl = `${CLIENT_ORIGIN()}/api/auth/reset-password?token=${resetToken}`;
 
     await sendEmail({
       to: user.email,
       subject: "Reset your password",
-      html: `<p>You can reset your password by clicking the link below:</p>
-             <p><a href="${resetUrl}">Reset Password</a></p>`,
+      content: passwordResetContent({ username: user.email.split("@")[0], url: resetUrl }),
     });
 
     return res.json({

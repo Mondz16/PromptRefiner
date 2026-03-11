@@ -83,4 +83,22 @@ const emailVerificationContent = ({ username, url }) => {
   }
 }
 
-export { sendEmail, emailVerificationContent };
+const passwordResetContent = ({ username, url }) => {
+    return {
+      body: {
+        name: username,
+        intro: "You are receiving this email because you (or someone else) have requested a password reset for your account.",
+        action: {
+          instructions: "To reset your password please click on the following button",
+          button: {
+            color: "#1aae5aff",
+            text: "Reset your password",
+            link: url
+          },
+        },
+        outro: "If you did not request a password reset, please ignore this email."
+      }
+    }
+}
+
+export { sendEmail, emailVerificationContent , passwordResetContent};

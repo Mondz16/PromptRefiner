@@ -44,6 +44,8 @@ function NavLink({ to, children }) {
 function AppShell() {
   const { user, logout } = useAuth();
 
+console.log(import.meta.env.VITE_API_BASE_URL);
+
   return (
     <div className="min-h-screen bg-stone-50">
       {/* ── Nav bar ── */}
